@@ -5,21 +5,11 @@ numbers -> list (1 <= numbers <= 50, 자연수)
 target -> int (1 <= target <= 1000, 자연수)
 return -> 타겟 넘버를 만들 수 있는 경우의 수
 """
+
+def dfs(numbers, target, idx, curr_sum):
+    if len(numbers) == idx: # 모든 숫자를 다 사용 (종료 조건)
+        return 1 if curr_sum == target else 0
+    return dfs(numbers, target, idx+1, curr_sum + numbers[idx]) + dfs(numbers, target, idx+1, curr_sum - numbers[idx])
+
 def solution(numbers, target):
-    answer = 0
-    
-    leaves = [0]
-    
-    for num in numbers:
-        temp = []
-        
-        for leaf in leaves:
-            temp.append(leaf + num)
-            temp.append(leaf - num)
-        
-        leaves = temp
-        
-    for leaf in leaves:
-        if leaf == target:
-            answer += 1
-    return answer
+    return dfs(numbers, target, 0, 0)
