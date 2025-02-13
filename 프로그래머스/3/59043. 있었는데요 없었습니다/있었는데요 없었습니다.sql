@@ -1,0 +1,12 @@
+-- 일부 동물의 입양일이 잘못 입력되
+-- 보호 시작일(ANIMAL_INS.DATETIME)보다 입양일(ANIMAL_OUTS.DATETIME)이 더 빠른 동물
+-- 동물의 아이디와 이름을 조회
+-- 보호 시작일이 빠른 순
+SELECT
+    I.ANIMAL_ID, I.NAME    
+FROM ANIMAL_INS AS I
+LEFT JOIN ANIMAL_OUTS AS O ON I.ANIMAL_ID = O.ANIMAL_ID
+WHERE I.DATETIME > O.DATETIME
+ORDER BY I.DATETIME;
+
+    
